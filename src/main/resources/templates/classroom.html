@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layoutAdmin2 :: layout_head}">
+</head>
+
+<body>
+<div class="wrapper">
+    <!-- Sidebar  -->
+    <nav th:fragment="nav_left" id="sidebar">
+        <div class="sidebar-header">
+            <a href="/coach"><img src="../../teacher2.png" class="rounded-circle" alt="Cinque Terre" width="100" height="100"></a>
+            <h3>Trang Coach</h3>
+        </div>
+
+                <ul class="list-unstyled components">
+                    <p>Danh sách lớp học</p>
+                    <div th:each="classroom:${listClass}">
+                        <ul class="list-unstyled components">
+                            <li class="active">
+                                <h4><a th:href="'#homeSubmenu'+${classroom.name}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"
+                                   th:text="${classroom.getName()}"></a></h4>
+                                <ul class="collapse list-unstyled" th:id="'homeSubmenu'+${classroom.name}">
+                                    <li><a th:href="'/coach/classlist/'+${classroom.getId()}">Danh sách học viên</a></li>
+                                    <li><a th:href="'/coach/diary/'+${classroom.getId()}">Nhật ký</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </ul>
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content">
+
+        <nav th:replace="~{layoutAdmin :: nav_top}">
+        </nav>
+        <div>
+            <a href="/coach"><span style="color: blue"><u>Back to home coach</u></span></a>
+            <h3 th:text="'Danh sách học viên lớp '+${classname}"></h3>
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Ảnh</th>
+                    <th scope="col">Họ tên</th>
+                    <th scope="col">SĐT</th>
+                </tr>
+                </thead>
+                <tbody>
+                <div th:each="student,count:${listStudent}">
+                    <tr>
+                        <td scope="row" th:text="${count.index+1}"></td>
+                        <td>
+                            <img th:src="'../../'+${student.getImage()}" width="200px" height="200px">
+                        </td>
+                        <td><a th:href="'/coach/student/'+${student.getId()}" th:text="${student.getName()}"></a></td>
+                        <td th:text="${student.getTel()}"></td>
+                    </tr>
+                </div>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+<div th:replace="~{layoutAdmin :: toggle_nav}"></div>
+</body>
+
+</html>

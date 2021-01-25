@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layoutAdmin2 :: layout_head}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="wrapper">
+    <nav th:replace="~{layoutAdmin2 :: nav_left}"></nav>
+    <div id="content">
+        <nav th:replace="~{layoutAdmin2 :: nav_top}"></nav>
+        <h1>Sửa học viên</h1>
+        <div class="modal-body">
+            <form method="post" th:object="${student}" enctype="multipart/form-data">
+                <!--                <input type="hidden" name="id" th:value="*{id}">-->
+                <table>
+                    <tr>
+                        <td class="modal-title">Tên học viên</td>
+                        <td><input name="name" th:value="${student.name}"  placeholder="Nhập tên"></td>
+                    </tr>
+                    <tr>
+                        <td class="modal-title">Tuổi</td>
+                        <td><input name="age" th:value="${student.age}" placeholder="Nhập tuổi"/></td>
+                    </tr>
+                    <tr>
+                        <td class="modal-title">Số điện thoại</td>
+                        <td><input name="tel" th:value="${student.tel}" placeholder="Nhập số điện thoại "/></td>
+                    </tr>
+                    <tr>
+                        <td class="modal-title">Địa chỉ</td>
+                        <td><input name="address" th:value="${student.address}" placeholder="Nhập địa chỉ "/></td>
+                    </tr>
+                    <tr>
+                        <td class="modal-title">Giới tính</td>
+                        <td>
+                            <select name="gender" th:default="${student.gender}">
+                                <option>Nam</option>
+                                <option>Nữ</option>
+                                <option>Khác</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="modal-title">Ảnh</td>
+                        <td><input name="avatar" type="file"></td>
+                    </tr>
+                    <tr>
+                        <td class="modal-title">Lớp</td>
+                        <td>
+                            <select name="classroom" th:default="${student.classroom}">
+                                <option th:each="classroom : ${classs}" th:value="${classroom.id}" th:text="${classroom.name}"></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" class="btn btn-primary"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="~{layoutAdmin :: toggle_nav}"></div>
+</body>
+</html>
